@@ -1,6 +1,8 @@
-# be-nc-news-generated
+# be-nc-news
 
 ## Available Scripts
+
+Probabaly need to also mention dummy knexfile.js
 
 Create development and test databases locally:
 

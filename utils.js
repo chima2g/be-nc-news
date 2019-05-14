@@ -34,4 +34,11 @@ exports.formatComments = (comments, lookup) => {
   return newArr;
 };
 
-module.exports = { renameKeys, createRef, formatComments };
+exports.formatCreationDate = array => {
+  return array.map(arrayItem => {
+    arrayItem.created_at = new Date(arrayItem.created_at)
+      .toISOString()
+      .replace("T", " ")
+      .split(".")[0];
+  });
+};
