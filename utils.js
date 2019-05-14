@@ -1,4 +1,4 @@
-renameKeys = (myArray, keyToChange, newKey) => {
+exports.renameKeys = (myArray, keyToChange, newKey) => {
   const newArr = myArray.map(objInArray => {
     const { [keyToChange]: varToKeep, ...remainingElements } = objInArray;
     const newObj = { [newKey]: varToKeep, ...remainingElements };
@@ -7,7 +7,7 @@ renameKeys = (myArray, keyToChange, newKey) => {
   return newArr;
 };
 
-createRef = (objectArray, lookupKey, lookupValue) => {
+exports.createRef = (objectArray, lookupKey, lookupValue) => {
   let lookup = {};
 
   if (objectArray)
@@ -20,7 +20,7 @@ createRef = (objectArray, lookupKey, lookupValue) => {
   return lookup;
 };
 
-formatComments = (comments, lookup) => {
+exports.formatComments = (comments, lookup) => {
   const newArr = comments.map(comment => {
     const { belongs_to, ...otherDetails } = comment;
     const changedComment = {
