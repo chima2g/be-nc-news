@@ -36,9 +36,9 @@ exports.formatComments = (comments, lookup) => {
 
 exports.formatCreationDate = array => {
   return array.map(arrayItem => {
-    arrayItem.created_at = new Date(arrayItem.created_at)
-      .toISOString()
-      .replace("T", " ")
-      .split(".")[0];
+    const { ...originalContents } = arrayItem;
+    const newArrayItem = { ...originalContents };
+    newArrayItem.created_at = new Date(newArrayItem.created_at);
+    return newArrayItem;
   });
 };

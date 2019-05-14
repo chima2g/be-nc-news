@@ -8,8 +8,8 @@ const {
 } = require("../../utils");
 
 const articleLookup = createRef(articleData, "title");
-let amendedComments = formatComments(amendedComments, articleLookup);
-amendedComments = renameKeys(commentData, "created_by", "author");
+let amendedComments = formatComments(commentData, articleLookup);
+amendedComments = renameKeys(amendedComments, "created_by", "author");
 amendedComments = formatCreationDate(amendedComments);
 const amendedArticles = formatCreationDate(articleData);
 

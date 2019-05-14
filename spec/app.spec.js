@@ -20,4 +20,17 @@ describe("/", () => {
         });
     });
   });
+
+  describe("/api/topics", () => {
+    it("GET returns status 200 & topics object containing an array of the topics", () => {
+      return request(app)
+        .get("/api/topics")
+        .expect(200)
+        .then(({ body: { topics } }) => {
+          expect(topics).to.have.length(3);
+          expect(topics[0].hasOwnProperty("slug")).to.equal(true);
+          expect(topics[0].hasOwnProperty("desctiption")).to.equal(true);
+        });
+    });
+  });
 });
