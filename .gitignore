@@ -1,3 +1,4 @@
 node_modules
 knexfile.js
 .DS_Store
+rough_sql_test.sql
