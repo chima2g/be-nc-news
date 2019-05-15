@@ -1,7 +1,10 @@
 process.env.NODE_ENV = "test";
 
-const { expect } = require("chai");
 const request = require("supertest");
+const chai = require("chai");
+const expect = chai.expect;
+const chaiSorted = require("chai-sorted");
+chai.use(chaiSorted);
 
 const app = require("../app");
 const connection = require("../db/connection");
@@ -48,6 +51,16 @@ describe("/", () => {
           expect(articles[0].hasOwnProperty("created_at")).to.equal(true);
           expect(articles[0].hasOwnProperty("votes")).to.equal(true);
           expect(articles[0].hasOwnProperty("comment_count")).to.equal(true);
+        });
+    });
+    it("GET by default sorts articles by date in descending order", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          expect(articles).to.be.sortedBy("author", {
+            descending: true
+          });
         });
     });
   });
