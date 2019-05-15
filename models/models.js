@@ -14,6 +14,9 @@ exports.selectAllArticles = ({
   author,
   topic
 }) => {
+  if (order !== "asc" && order !== "desc")
+    return Promise.reject({ code: 22023 });
+
   return connection("articles")
     .select("articles.*")
     .count("articles.article_id as comment_count")

@@ -73,7 +73,7 @@ describe("/", () => {
           });
         });
     });
-    it.only('GET - status: 400 responds with "Bad Request!" when given an invalid column', () => {
+    it('GET - responds with "Bad Request!" & status: 400 when given an invalid column', () => {
       return request(app)
         .get("/api/articles?sort_by=unknown_column")
         .expect(400);
@@ -97,6 +97,11 @@ describe("/", () => {
             descending: false
           });
         });
+    });
+    it.only('GET - responds with "Bad Request!" & status: 400 when given an invalid order', () => {
+      return request(app)
+        .get("/api/articles?order=unknown_order")
+        .expect(400);
     });
     it("GET can filter articles by a specified author", () => {
       return request(app)
