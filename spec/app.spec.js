@@ -76,7 +76,10 @@ describe("/", () => {
     it('GET - responds with "Bad Request!" & status: 400 when given an invalid column', () => {
       return request(app)
         .get("/api/articles?sort_by=unknown_column")
-        .expect(400);
+        .expect(400)
+        .then(({ body: { msg } }) => {
+          expect(msg).to.eql("Bad request!");
+        });
     });
     it("GET can sort by a given order", () => {
       return request(app)
@@ -101,7 +104,10 @@ describe("/", () => {
     it('GET - responds with "Bad Request!" & status: 400 when given an invalid order', () => {
       return request(app)
         .get("/api/articles?order=unknown_order")
-        .expect(400);
+        .expect(400)
+        .then(({ body: { msg } }) => {
+          expect(msg).to.eql("Bad request!");
+        });
     });
     it("GET can filter articles by a specified author", () => {
       return request(app)
@@ -114,7 +120,10 @@ describe("/", () => {
     it('GET - responds with "Bad Request!" & status: 400 when given an invalid author', () => {
       return request(app)
         .get("/api/articles?author=unknown_author")
-        .expect(400);
+        .expect(400)
+        .then(({ body: { msg } }) => {
+          expect(msg).to.eql("Bad request!");
+        });
     });
     it("GET can filter articles by a specified topic", () => {
       return request(app)
@@ -126,7 +135,7 @@ describe("/", () => {
     });
   });
   describe("/api/articles/:article_id", () => {
-    it.only("GET returns an articles object containing an array of articles with the given article_id", () => {
+    it("GET returns an articles object containing an array of articles with the given article_id", () => {
       return request(app)
         .get("/api/articles/1")
         .expect(200)
@@ -143,5 +152,13 @@ describe("/", () => {
           expect(articles[0].comment_count).to.eql("13");
         });
     });
+  });
+  it('GET - responds with "Bad Request!" & status: 400 when given an invalid article id', () => {
+    return request(app)
+      .get("/api/articles/unknown_article_id")
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).to.eql("Bad request!");
+      });
   });
 });
