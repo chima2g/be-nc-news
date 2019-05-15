@@ -125,4 +125,23 @@ describe("/", () => {
         });
     });
   });
+  describe("/api/articles/:article_id", () => {
+    it.only("GET returns an articles object containing an array of articles with the given article_id", () => {
+      return request(app)
+        .get("/api/articles/1")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          expect(articles).to.have.length(1);
+          expect(articles[0].hasOwnProperty("author")).to.equal(true);
+          expect(articles[0].hasOwnProperty("title")).to.equal(true);
+          expect(articles[0].hasOwnProperty("article_id")).to.equal(true);
+          expect(articles[0].hasOwnProperty("body")).to.equal(true);
+          expect(articles[0].hasOwnProperty("topic")).to.equal(true);
+          expect(articles[0].hasOwnProperty("created_at")).to.equal(true);
+          expect(articles[0].hasOwnProperty("votes")).to.equal(true);
+          expect(articles[0].hasOwnProperty("comment_count")).to.equal(true);
+          expect(articles[0].comment_count).to.eql("13");
+        });
+    });
+  });
 });

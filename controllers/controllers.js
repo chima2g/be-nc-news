@@ -9,7 +9,7 @@ exports.getAllTopics = (req, res, next) => {
 };
 
 exports.getAllArticles = (req, res, next) => {
-  selectAllArticles(req.query)
+  selectAllArticles(req.query, req.params.article_id)
     .then(articles =>
       res.status(200).send({
         articles
