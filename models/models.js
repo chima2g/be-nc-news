@@ -21,6 +21,8 @@ exports.selectAllArticles = ({
     .groupBy("articles.article_id")
     .modify(queryBuilder => {
       queryBuilder.orderBy(sort_by, order);
+      if (author) queryBuilder.where("articles.author", "=", author);
+      if (topic) queryBuilder.where("articles.topic", "=", topic);
     })
     .then(result => {
       return result;
