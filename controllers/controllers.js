@@ -9,9 +9,11 @@ exports.getAllTopics = (req, res, next) => {
 };
 
 exports.getAllArticles = (req, res, next) => {
-  selectAllArticles(req.query).then(articles =>
-    res.status(200).send({
-      articles
-    })
-  );
+  selectAllArticles(req.query)
+    .then(articles =>
+      res.status(200).send({
+        articles
+      })
+    )
+    .catch(next);
 };

@@ -73,6 +73,11 @@ describe("/", () => {
           });
         });
     });
+    it.only('GET - status: 400 responds with "Bad Request!" when given an invalid column', () => {
+      return request(app)
+        .get("/api/articles?sort_by=unknown_column")
+        .expect(400);
+    });
     it("GET can sort by a given order", () => {
       return request(app)
         .get("/api/articles?order=asc")
