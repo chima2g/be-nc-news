@@ -28,6 +28,7 @@ exports.selectAllArticles = ({
       if (topic) queryBuilder.where("articles.topic", "=", topic);
     })
     .then(result => {
-      return result;
+      if (result.length === 0) return Promise.reject({ code: 22023 });
+      else return result;
     });
 };

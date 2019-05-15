@@ -98,7 +98,7 @@ describe("/", () => {
           });
         });
     });
-    it.only('GET - responds with "Bad Request!" & status: 400 when given an invalid order', () => {
+    it('GET - responds with "Bad Request!" & status: 400 when given an invalid order', () => {
       return request(app)
         .get("/api/articles?order=unknown_order")
         .expect(400);
@@ -110,6 +110,11 @@ describe("/", () => {
         .then(({ body: { articles } }) => {
           expect(articles).to.have.length(3);
         });
+    });
+    it('GET - responds with "Bad Request!" & status: 400 when given an invalid author', () => {
+      return request(app)
+        .get("/api/articles?author=unknown_author")
+        .expect(400);
     });
     it("GET can filter articles by a specified topic", () => {
       return request(app)
