@@ -1,4 +1,9 @@
-const { selectAllTopics, selectAllArticles } = require("../models/models.js");
+const {
+  selectAllTopics,
+  selectArticles,
+  updateArticle,
+  selectComments
+} = require("../models/models.js");
 
 exports.getAllTopics = (req, res, next) => {
   selectAllTopics().then(topics =>
@@ -8,12 +13,32 @@ exports.getAllTopics = (req, res, next) => {
   );
 };
 
-exports.getAllArticles = (req, res, next) => {
-  selectAllArticles(req.query, req.params.article_id)
+exports.getArticles = (req, res, next) => {
+  selectArticles(req.query, req.params.article_id)
     .then(articles =>
       res.status(200).send({
         articles
       })
     )
+    .catch(next);
+};
+
+exports.getComments = (req, res, next) => {
+  selectComments(req.query, req.params.article_id)
+    .then(comments =>
+      res.status(200).send({
+        comments
+      })
+    )
+    .catch(next);
+};
+
+exports.amendArticle = (req, res, next) => {
+  updateArticle(req.params, req.body)
+    .then(article => {
+      res.status(200).send({
+        article
+      });
+    })
     .catch(next);
 };

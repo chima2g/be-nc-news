@@ -1,8 +1,14 @@
 const articleRouter = require("express").Router();
-const { getAllArticles } = require("../controllers/controllers");
+const {
+  getArticles,
+  getComments,
+  amendArticle
+} = require("../controllers/controllers");
 
-articleRouter.route("/").get(getAllArticles);
-articleRouter.route("/:article_id").get(getAllArticles);
+articleRouter.route("/").get(getArticles);
+articleRouter.route("/:article_id").get(getArticles);
+articleRouter.route("/:article_id").patch(amendArticle);
+articleRouter.route("/:article_id/comments").get(getComments);
 // articleRouter.route("/").post(sendarticle);
 // articleRouter.route("/:article_id").delete(removearticle);
 
