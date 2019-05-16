@@ -205,7 +205,7 @@ describe("/", () => {
             .get("/api/articles/1/comments")
             .expect(200)
             .then(({ body: { comments } }) => {
-              expect(comments).to.have.length(18);
+              expect(comments).to.have.length(13);
               expect(comments[0]).to.have.keys([
                 "comment_id",
                 "author",
@@ -213,6 +213,16 @@ describe("/", () => {
                 "created_at",
                 "body"
               ]);
+            });
+        });
+        it("GET sorts comments by created_at in descending order by default", () => {
+          return request(app)
+            .get("/api/articles/1/comments")
+            .expect(200)
+            .then(({ body: { comments } }) => {
+              expect(comments).to.be.sortedBy("created_at", {
+                descending: true
+              });
             });
         });
       });

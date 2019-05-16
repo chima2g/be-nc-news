@@ -81,6 +81,10 @@ exports.selectComments = (
   return connection("articles")
     .select(selectedColumns)
     .join("comments", "articles.article_id", "comments.article_id")
+    .where("comments.article_id", "=", article_id)
+    .modify(queryBuilder => {
+      queryBuilder.orderBy(sort_by, order);
+    })
     .then(result => {
       // console.log("result: " + JSON.stringify(result));
       return result;
