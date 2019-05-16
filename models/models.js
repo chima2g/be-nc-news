@@ -58,7 +58,7 @@ exports.updateArticle = (id, updateVariables) => {
     .then(([result]) => {
       // console.log("returning: " + JSON.stringify(result));
 
-      //TODO: Not whether to handle 404 errors like this... think about it when you're feeling better
+      //TODO: Not sure whether to handle 404 errors like this... think about it when you're feeling better
       //... that said, this is causing the catch block to receive a blank object anyway
       if (result.length === 0)
         return Promise.reject({ msg: "Page not Found!", error: 404 });
@@ -77,4 +77,12 @@ exports.selectComments = (
     "comments.created_at",
     "comments.body"
   ];
+
+  return connection("articles")
+    .select(selectedColumns)
+    .join("comments", "articles.article_id", "comments.article_id")
+    .then(result => {
+      // console.log("result: " + JSON.stringify(result));
+      return result;
+    });
 };
