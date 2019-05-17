@@ -268,6 +268,23 @@ describe("/", () => {
               ]);
             });
         });
+        xit("PATCH accepts a votes object, responds with 200 & the updated comment", () => {
+          return request(app)
+            .patch("/api/comments/2")
+            .send({ inc_votes: 12 })
+            .expect(200)
+            .then(({ body: { comment } }) => {
+              expect(comment.votes).to.eql("26");
+              expect(comment).to.have.keys([
+                "comment_id",
+                "author",
+                "article_id",
+                "votes",
+                "created_at",
+                "body"
+              ]);
+            });
+        });
       });
     });
   });
