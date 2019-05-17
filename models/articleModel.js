@@ -79,7 +79,10 @@ exports.selectComments = (
     })
     .then(result => {
       // console.log("result: " + JSON.stringify(result));
-      return result;
+
+      if (result.length === 0)
+        return Promise.reject({ msg: "Article not found!", status: 404 });
+      else return result;
     });
 };
 

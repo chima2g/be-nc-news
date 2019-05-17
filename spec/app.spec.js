@@ -202,7 +202,7 @@ describe("/", () => {
               expect(article.votes).to.eql(100);
             });
         });
-        it('PATCH - responds with "Page not Found!" & status: 404 when given an integer article id that doesn\'t exist', () => {
+        it('PATCH - responds with "Article not Found!" & status: 404 when given an integer article id that doesn\'t exist', () => {
           return request(app)
             .patch("/api/articles/9999")
             .send({ inc_votes: 3 })
@@ -256,6 +256,14 @@ describe("/", () => {
                 expect(comments).to.be.sortedBy("author", {
                   descending: true
                 });
+              });
+          });
+          it("GET responds with 'Article not found!' & status: 404 when given an integer article id that doesn't exist", () => {
+            return request(app)
+              .get("/api/articles/9999/comments")
+              .expect(404)
+              .then(({ body: { msg } }) => {
+                expect(msg).to.eql("Article not found!");
               });
           });
           it("POST accepts a votes object, responds with 200 & the posted comment", () => {
