@@ -36,9 +36,12 @@ exports.selectArticles = (
         queryBuilder.having("articles.article_id", "=", article_id);
     })
     .then(result => {
-      // console.log("result: " + result);
+      // console.log("result: " + JSON.stringify(result));
       if (result.length === 0) return Promise.reject({ code: 22023 });
-      else return result;
+      else if (article_id) {
+        const [article] = result; //Remove the article from the array if this was a request for a single article
+        return article;
+      } else return result;
     });
 };
 

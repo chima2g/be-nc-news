@@ -138,9 +138,8 @@ describe("/", () => {
           return request(app)
             .get("/api/articles/1")
             .expect(200)
-            .then(({ body: { articles } }) => {
-              expect(articles).to.have.length(1);
-              expect(articles[0]).to.have.keys([
+            .then(({ body: { article } }) => {
+              expect(article).to.have.keys([
                 "author",
                 "title",
                 "article_id",
@@ -150,7 +149,7 @@ describe("/", () => {
                 "votes",
                 "comment_count"
               ]);
-              expect(articles[0].comment_count).to.eql("13");
+              expect(article.comment_count).to.eql("13");
             });
         });
 
@@ -314,12 +313,12 @@ describe("/", () => {
       });
     });
     describe("/api/users/:username", () => {
-      it("GET returns status 200 and a user object", () => {
+      it.only("GET returns status 200 and a user object", () => {
         return request(app)
           .get("/api/users/rogersop")
           .expect(200)
           .then(({ body: { user } }) => {
-            expect(user[0]).to.have.keys(["username", "avatar_url", "name"]);
+            expect(user).to.have.keys(["username", "avatar_url", "name"]);
           });
       });
     });

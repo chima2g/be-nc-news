@@ -1,5 +1,4 @@
 const {
-  selectAllTopics,
   selectArticles,
   updateArticle,
   selectComments,
@@ -11,6 +10,16 @@ exports.getArticles = (req, res, next) => {
     .then(articles =>
       res.status(200).send({
         articles
+      })
+    )
+    .catch(next);
+};
+
+exports.getArticle = (req, res, next) => {
+  selectArticles(req.query, req.params.article_id)
+    .then(article =>
+      res.status(200).send({
+        article
       })
     )
     .catch(next);
