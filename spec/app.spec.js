@@ -189,15 +189,16 @@ describe("/", () => {
               expect(msg).to.eql("Bad request!");
             });
         });
-        xit('PATCH - responds with "Page not Found!" & status: 404 when given an integer article id that doesn\'t exist', () => {
+        it('PATCH - responds with "Page not Found!" & status: 404 when given an integer article id that doesn\'t exist', () => {
           return request(app)
             .patch("/api/articles/9999")
             .send({ inc_votes: 3 })
             .expect(404)
             .then(({ body: { msg } }) => {
-              expect(msg).to.eql("Page not found!");
+              expect(msg).to.eql("Article not found!");
             });
         });
+
         describe("/api/articles/:article_id/comments", () => {
           it("GET returns status 200 & an array of comments for the given article_id", () => {
             return request(app)
@@ -288,7 +289,7 @@ describe("/", () => {
             ]);
           });
       });
-      it.only("DELETE deletes the comment corresponding to the given comment_id & responds with 204 and no content", () => {
+      it("DELETE deletes the comment corresponding to the given comment_id & responds with 204 and no content", () => {
         return request(app)
           .delete("/api/comments/2")
           .expect(204);

@@ -2,8 +2,6 @@
 
 ## Available Scripts
 
-Probabaly need to also mention dummy knexfile.js
-
 Create development and test databases locally:
 
 ```bash
