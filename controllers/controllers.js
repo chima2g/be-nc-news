@@ -2,7 +2,8 @@ const {
   selectAllTopics,
   selectArticles,
   updateArticle,
-  selectComments
+  selectComments,
+  insertComment
 } = require("../models/models.js");
 
 exports.getAllTopics = (req, res, next) => {
@@ -30,6 +31,16 @@ exports.getComments = (req, res, next) => {
         comments
       })
     )
+    .catch(next);
+};
+
+exports.addComment = (req, res, next) => {
+  insertComment(req.params, req.body)
+    .then(comment => {
+      res.status(200).send({
+        comment
+      });
+    })
     .catch(next);
 };
 

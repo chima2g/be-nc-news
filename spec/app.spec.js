@@ -199,7 +199,7 @@ describe("/", () => {
             expect(msg).to.eql("Page not found!");
           });
       });
-      describe.only("/api/articles/:article_id/comments", () => {
+      describe("/api/articles/:article_id/comments", () => {
         it("GET returns status 200 & an array of comments for the given article_id", () => {
           return request(app)
             .get("/api/articles/1/comments")
@@ -223,6 +223,49 @@ describe("/", () => {
               expect(comments).to.be.sortedBy("created_at", {
                 descending: true
               });
+            });
+        });
+        it("GET sorts comments by the given order", () => {
+          return request(app)
+            .get("/api/articles/1/comments?order=asc")
+            .expect(200)
+            .then(({ body: { comments } }) => {
+              expect(comments).to.be.sortedBy("created_at", {
+                descending: false
+              });
+            });
+        });
+        it("GET sorts comments by the given column", () => {
+          return request(app)
+            .get("/api/articles/1/comments?sort_by=author")
+            .expect(200)
+            .then(({ body: { comments } }) => {
+              expect(comments).to.be.sortedBy("author", {
+                descending: true
+              });
+            });
+        });
+        it("POST accepts a votes object, responds with 200 & the posted comment", () => {
+          const input = {
+            username: "rogersop",
+            body: "I'm not sure this is the best use of anyone's time."
+          };
+
+          return request(app)
+            .post("/api/articles/1/comments")
+            .send(input)
+            .expect(200)
+            .then(({ body: { comment } }) => {
+              expect(comment.author).to.eql(input.username);
+              expect(comment.body).to.eql(input.body);
+              expect(comment).to.have.keys([
+                "comment_id",
+                "author",
+                "article_id",
+                "votes",
+                "created_at",
+                "body"
+              ]);
             });
         });
       });
