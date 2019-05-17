@@ -4,7 +4,7 @@ const {
   getComments,
   amendArticle,
   addComment
-} = require("../controllers/controllers");
+} = require("../controllers/articleController");
 
 articleRouter.route("/").get(getArticles);
 articleRouter.route("/:article_id").get(getArticles);

@@ -4,15 +4,7 @@ const {
   updateArticle,
   selectComments,
   insertComment
-} = require("../models/models.js");
-
-exports.getAllTopics = (req, res, next) => {
-  selectAllTopics().then(topics =>
-    res.status(200).send({
-      topics
-    })
-  );
-};
+} = require("../models/articleModel");
 
 exports.getArticles = (req, res, next) => {
   selectArticles(req.query, req.params.article_id)

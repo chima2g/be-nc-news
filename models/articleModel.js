@@ -1,13 +1,5 @@
 const connection = require("../db/connection");
 
-exports.selectAllTopics = () => {
-  return connection("topics")
-    .select("*")
-    .then(result => {
-      return result;
-    });
-};
-
 /*  Selects all articles by default or all articles with the given article_id if supplied
  */
 exports.selectArticles = (
