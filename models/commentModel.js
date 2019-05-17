@@ -1,8 +1,8 @@
 const connection = require("../db/connection");
 
-exports.updateComment = (params, body) => {
+exports.updateComment = (params, votes = 0) => {
   return connection("comments")
-    .increment("votes", body.inc_votes)
+    .increment("votes", votes)
     .where(params)
     .returning("*")
     .then(([result]) => {

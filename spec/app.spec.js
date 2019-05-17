@@ -58,7 +58,7 @@ describe("/", () => {
           .get("/api/articles")
           .expect(200)
           .then(({ body: { articles } }) => {
-            expect(articles).to.be.sortedBy("author", {
+            expect(articles).to.be.sortedBy("created_at", {
               descending: true
             });
           });
@@ -86,7 +86,7 @@ describe("/", () => {
           .get("/api/articles?order=asc")
           .expect(200)
           .then(({ body: { articles } }) => {
-            expect(articles).to.be.sortedBy("author", {
+            expect(articles).to.be.sortedBy("created_at", {
               descending: false
             });
           });
@@ -189,6 +189,15 @@ describe("/", () => {
               expect(msg).to.eql("Bad request!");
             });
         });
+        it("PATCH - defaults to 0 votes when votes parameter isn't supplied", () => {
+          return request(app)
+            .patch("/api/articles/1")
+            .send({})
+            .expect(200)
+            .then(({ body: { article } }) => {
+              expect(article.votes).to.eql(100);
+            });
+        });
         it('PATCH - responds with "Page not Found!" & status: 404 when given an integer article id that doesn\'t exist', () => {
           return request(app)
             .patch("/api/articles/9999")
@@ -287,6 +296,15 @@ describe("/", () => {
               "created_at",
               "body"
             ]);
+          });
+      });
+      it("PATCH - defaults to 0 votes when votes parameter isn't supplied", () => {
+        return request(app)
+          .patch("/api/comments/2")
+          .send({})
+          .expect(200)
+          .then(({ body: { comment } }) => {
+            expect(comment.votes).to.eql(14);
           });
       });
       it("DELETE deletes the comment corresponding to the given comment_id & responds with 204 and no content", () => {

@@ -3,7 +3,7 @@ const connection = require("../db/connection");
 /*  Selects all articles by default or all articles with the given article_id if supplied
  */
 exports.selectArticles = (
-  { sort_by = "author", order = "desc", author, topic },
+  { sort_by = "created_at", order = "desc", author, topic },
   article_id
 ) => {
   if (order !== "asc" && order !== "desc")
@@ -42,10 +42,10 @@ exports.selectArticles = (
     });
 };
 
-exports.updateArticle = (id, updateVariables) => {
+exports.updateArticle = (params, votes = 0) => {
   return connection("articles")
-    .increment("votes", updateVariables.inc_votes)
-    .where(id)
+    .increment("votes", votes)
+    .where(params)
     .returning("*")
     .then(result => {
       // console.log("returning: " + JSON.stringify(result));

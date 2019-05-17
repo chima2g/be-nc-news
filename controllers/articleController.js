@@ -37,7 +37,7 @@ exports.addComment = (req, res, next) => {
 };
 
 exports.amendArticle = (req, res, next) => {
-  updateArticle(req.params, req.body)
+  updateArticle(req.params, req.body.inc_votes)
     .then(article => {
       res.status(200).send({
         article
