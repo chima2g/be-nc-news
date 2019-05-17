@@ -3,12 +3,8 @@ const topicRouter = require("./topicRouter");
 const articleRouter = require("./articleRouter");
 const commentRouter = require("./commentRouter");
 const userRouter = require("./userRouter");
-const { methodNotAllowed } = require("../errors");
 
-apiRouter
-  .route("/")
-  .get((req, res) => res.send({ ok: true }))
-  .all(methodNotAllowed);
+apiRouter.route("/").get((req, res) => res.send({ ok: true }));
 
 apiRouter.use("/topics", topicRouter);
 apiRouter.use("/articles", articleRouter);

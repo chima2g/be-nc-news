@@ -4,7 +4,7 @@ exports.selectUser = username => {
   return connection("users")
     .select("*")
     .where(username)
-    .then(result => {
+    .then(([result]) => {
       // console.log("result: " + result);
       return result;
     });

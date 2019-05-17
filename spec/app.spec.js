@@ -33,6 +33,11 @@ describe("/", () => {
             expect(topics[0]).to.have.keys(["slug", "description"]);
           });
       });
+      it("PUT returns status 405 as unsupported method", () => {
+        return request(app)
+          .put("/api/topics")
+          .expect(405);
+      });
     });
 
     describe("/api/articles", () => {
@@ -276,6 +281,11 @@ describe("/", () => {
                 ]);
               });
           });
+          it("PUT returns status 405 as unsupported method", () => {
+            return request(app)
+              .put("/api/articles/1/comments")
+              .expect(405);
+          });
         });
       });
     });
@@ -311,15 +321,25 @@ describe("/", () => {
           .delete("/api/comments/2")
           .expect(204);
       });
+      it("PUT returns status 405 as unsupported method", () => {
+        return request(app)
+          .put("/api/comments/2")
+          .expect(405);
+      });
     });
     describe("/api/users/:username", () => {
-      it.only("GET returns status 200 and a user object", () => {
+      it("GET returns status 200 and a user object", () => {
         return request(app)
           .get("/api/users/rogersop")
           .expect(200)
           .then(({ body: { user } }) => {
             expect(user).to.have.keys(["username", "avatar_url", "name"]);
           });
+      });
+      it("PUT returns status 405 as unsupported method", () => {
+        return request(app)
+          .put("/api/users/rogersop")
+          .expect(405);
       });
     });
   });

@@ -1,6 +1,6 @@
 const express = require("express");
-const apiRouter = require("./routes/api");
-const { routeNotFound, handle500, handleCustomErrors } = require("./errors");
+const apiRouter = require("./routes/apiRouter");
+const { methodNotAllowed, handle500, handleCustomErrors } = require("./errors");
 
 const app = express();
 
@@ -23,6 +23,6 @@ app.use((err, req, res, next) => {
 
 app.use(handleCustomErrors);
 
-app.all("/*", routeNotFound);
+app.all("/*", methodNotAllowed);
 
 module.exports = app;
