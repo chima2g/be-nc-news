@@ -289,6 +289,14 @@ describe("/", () => {
                 ]);
               });
           });
+          it("POST responds with 'Bad request!' & status: 400 when missing parameters", () => {
+            return request(app)
+              .post("/api/articles/1/comments")
+              .expect(400)
+              .then(({ body: { msg } }) => {
+                expect(msg).to.eql("Bad request!");
+              });
+          });
           it("PUT returns status 405 as unsupported method", () => {
             return request(app)
               .put("/api/articles/1/comments")

@@ -14,7 +14,8 @@ app.use((err, req, res, next) => {
   const errorCodes = {
     22023: "Bad request!",
     "22P02": "Bad request!",
-    42703: "Bad request!"
+    42703: "Bad request!",
+    23502: "Bad request!"
   };
 
   if (errorCodes[err.code]) res.status(400).send({ msg: errorCodes[err.code] });
