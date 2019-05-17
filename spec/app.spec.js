@@ -266,7 +266,7 @@ describe("/", () => {
                 expect(msg).to.eql("Article not found!");
               });
           });
-          it("POST accepts a votes object, responds with 200 & the posted comment", () => {
+          it("POST accepts a votes object, responds with 201 & the posted comment", () => {
             const input = {
               username: "rogersop",
               body: "I'm not sure this is the best use of anyone's time."
@@ -275,7 +275,7 @@ describe("/", () => {
             return request(app)
               .post("/api/articles/1/comments")
               .send(input)
-              .expect(200)
+              .expect(201)
               .then(({ body: { comment } }) => {
                 expect(comment.author).to.eql(input.username);
                 expect(comment.body).to.eql(input.body);

@@ -38,7 +38,7 @@ exports.getComments = (req, res, next) => {
 exports.addComment = (req, res, next) => {
   insertComment(req.params, req.body)
     .then(comment => {
-      res.status(200).send({
+      res.status(201).send({
         comment
       });
     })
