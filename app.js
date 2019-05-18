@@ -12,7 +12,6 @@ app.use((err, req, res, next) => {
   // console.log("err.code: " + err.code);
   // console.log("err.msg: " + err.msg);
   const errorCodes = {
-    22023: "Bad request!",
     "22P02": "Bad request!",
     42703: "Bad request!",
     23502: "Bad request!"

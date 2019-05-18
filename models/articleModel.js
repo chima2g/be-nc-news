@@ -7,10 +7,7 @@ exports.selectArticles = (
   article_id
 ) => {
   if (order !== "asc" && order !== "desc")
-    return Promise.reject({ code: 22023 });
-
-  if (article_id && isNaN(parseInt(article_id)))
-    return Promise.reject({ code: 22023 });
+    return Promise.reject({ msg: "Bad request!", status: 400 });
 
   const selectedColumns = [
     "articles.author",
@@ -37,7 +34,8 @@ exports.selectArticles = (
     })
     .then(result => {
       // console.log("result: " + JSON.stringify(result));
-      if (result.length === 0) return Promise.reject({ code: 22023 });
+      if (result.length === 0)
+        return Promise.reject({ msg: "Article not found!", status: 404 });
       else if (article_id) {
         const [article] = result; //Remove the article from the array if this was a request for a single article
         return article;

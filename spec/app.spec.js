@@ -122,12 +122,12 @@ describe("/", () => {
             expect(articles).to.have.length(3);
           });
       });
-      it('GET - responds with "Bad request!" & status: 400 when given an invalid author', () => {
+      it('GET - responds with "Article not found!" & status: 404 when given an invalid author', () => {
         return request(app)
           .get("/api/articles?author=unknown_author")
-          .expect(400)
+          .expect(404)
           .then(({ body: { msg } }) => {
-            expect(msg).to.eql("Bad request!");
+            expect(msg).to.eql("Article not found!");
           });
       });
       it("GET can filter articles by a specified topic", () => {
@@ -202,7 +202,7 @@ describe("/", () => {
               expect(article.votes).to.eql(100);
             });
         });
-        it('PATCH - responds with "Article not Found!" & status: 404 when given an integer article id that doesn\'t exist', () => {
+        it('PATCH - responds with "Article not found!" & status: 404 when given an integer article id that doesn\'t exist', () => {
           return request(app)
             .patch("/api/articles/9999")
             .send({ inc_votes: 3 })
