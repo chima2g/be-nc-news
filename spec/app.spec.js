@@ -319,7 +319,7 @@ describe("/", () => {
         });
       });
     });
-    describe("/api/comments", () => {
+    describe("/api/comments/:comment_id", () => {
       it("PATCH accepts a votes object, responds with 200 & the updated comment", () => {
         return request(app)
           .patch("/api/comments/2")
@@ -345,6 +345,12 @@ describe("/", () => {
           .then(({ body: { comment } }) => {
             expect(comment.votes).to.eql(14);
           });
+      });
+      it("PATCH responds with 'Comment not found!' & status: 404 when given an invalid comment id", () => {
+        return request(app)
+          .patch("/api/comments/9999")
+          .send({ inc_votes: 12 })
+          .expect(404);
       });
       it("DELETE deletes the comment corresponding to the given comment_id & responds with 204 and no content", () => {
         return request(app)
