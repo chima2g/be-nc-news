@@ -297,6 +297,20 @@ describe("/", () => {
                 expect(msg).to.eql("Bad request!");
               });
           });
+          it("POST responds with 'Article not found!' & status: 404 when given an invalid article id", () => {
+            const input = {
+              username: "rogersop",
+              body: "I'm not sure this is the best use of anyone's time."
+            };
+
+            return request(app)
+              .post("/api/articles/9999/comments")
+              .send(input)
+              .expect(404)
+              .then(({ body: { msg } }) => {
+                expect(msg).to.eql("Article not found!");
+              });
+          });
           it("PUT returns status 405 as unsupported method", () => {
             return request(app)
               .put("/api/articles/1/comments")
