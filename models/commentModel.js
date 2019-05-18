@@ -26,7 +26,9 @@ exports.deleteComment = params => {
     .where(params)
     .then(result => {
       // console.log("returning: " + JSON.stringify(result));
-      return {};
+      if (!result)
+        return Promise.reject({ msg: "Comment not found!", status: 404 });
+      else return {};
 
       //TODO: Not sure whether to handle 404 errors like this... think about it when you're feeling better
       //... that said, this is causing the catch block to receive a blank object anyway

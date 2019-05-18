@@ -357,6 +357,12 @@ describe("/", () => {
           .delete("/api/comments/2")
           .expect(204);
       });
+      it("DELETE responds with 'Comment not found!' & status: 404 when given an invalid comment id", () => {
+        return request(app)
+          .delete("/api/comments/9999")
+          .expect(404);
+      });
+
       it("PUT returns status 405 as unsupported method", () => {
         return request(app)
           .put("/api/comments/2")
