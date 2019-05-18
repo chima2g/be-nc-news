@@ -350,7 +350,10 @@ describe("/", () => {
         return request(app)
           .patch("/api/comments/9999")
           .send({ inc_votes: 12 })
-          .expect(404);
+          .expect(404)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.eql("Comment not found!");
+          });
       });
       it("DELETE deletes the comment corresponding to the given comment_id & responds with 204 and no content", () => {
         return request(app)
@@ -360,9 +363,11 @@ describe("/", () => {
       it("DELETE responds with 'Comment not found!' & status: 404 when given an invalid comment id", () => {
         return request(app)
           .delete("/api/comments/9999")
-          .expect(404);
+          .expect(404)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.eql("Comment not found!");
+          });
       });
-
       it("PUT returns status 405 as unsupported method", () => {
         return request(app)
           .put("/api/comments/2")
@@ -376,6 +381,14 @@ describe("/", () => {
           .expect(200)
           .then(({ body: { user } }) => {
             expect(user).to.have.keys(["username", "avatar_url", "name"]);
+          });
+      });
+      it("GET responds with 'User not found!' & status: 404 when given an invalid comment id", () => {
+        return request(app)
+          .get("/api/users/unknown_username")
+          .expect(404)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.eql("User not found!");
           });
       });
       it("PUT returns status 405 as unsupported method", () => {
