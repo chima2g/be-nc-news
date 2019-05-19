@@ -18,7 +18,7 @@ exports.up = function(knex, Promise) {
     commentsTable
       .timestamp("created_at")
       .defaultTo(knex.fn.now())
-      .notNullable(); //    commentsTable.timestamp("created_at");
+      .notNullable();
     commentsTable.string("body", 5000).notNullable();
   });
 };

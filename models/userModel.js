@@ -5,7 +5,6 @@ exports.selectUser = username => {
     .select("*")
     .where(username)
     .then(([result]) => {
-      // console.log("result: " + result);
       if (!result)
         return Promise.reject({ msg: "User not found!", status: 404 });
       else return result;

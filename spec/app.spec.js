@@ -14,12 +14,20 @@ describe("/", () => {
   after(() => connection.destroy());
 
   describe("/api", () => {
-    it("GET status:200", () => {
+    // it.only("GET status:200", () => {
+    //   return request(app)
+    //     .get("/api")
+    //     .expect(200)
+    //     .then(({ body }) => {
+    //       expect(body.ok).to.equal(true);
+    //     });
+    // });
+    it("GET status:200 and an object containing an array of all endpoints", () => {
       return request(app)
         .get("/api")
         .expect(200)
-        .then(({ body }) => {
-          expect(body.ok).to.equal(true);
+        .then(({ body: { endpoints } }) => {
+          expect(endpoints).to.have.length(6);
         });
     });
 
@@ -138,6 +146,11 @@ describe("/", () => {
             expect(articles).to.have.length(1);
           });
       });
+      it("PUT returns status 405 as unsupported method", () => {
+        return request(app)
+          .put("/api/articles")
+          .expect(405);
+      });
       describe("/api/articles/:article_id", () => {
         it("GET returns an articles object containing an array of articles with the given article_id", () => {
           return request(app)
@@ -211,7 +224,11 @@ describe("/", () => {
               expect(msg).to.eql("Article not found!");
             });
         });
-
+        it("PUT returns status 405 as unsupported method", () => {
+          return request(app)
+            .put("/api/articles/1")
+            .expect(405);
+        });
         describe("/api/articles/:article_id/comments", () => {
           it("GET returns status 200 & an array of comments for the given article_id", () => {
             return request(app)
