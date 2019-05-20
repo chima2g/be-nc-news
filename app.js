@@ -1,7 +1,7 @@
 const express = require("express");
 const apiRouter = require("./routes/apiRouter");
 const {
-  methodNotAllowed,
+  routeNotFound,
   handlePSQLErrors,
   handleCustomErrors
 } = require("./errors");
@@ -14,6 +14,6 @@ app.use("/api", apiRouter);
 app.use(handlePSQLErrors);
 app.use(handleCustomErrors);
 
-app.all("/*", methodNotAllowed);
+app.all("/*", routeNotFound);
 
 module.exports = app;

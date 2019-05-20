@@ -230,9 +230,9 @@ describe("/", () => {
             .expect(405);
         });
         describe("/api/articles/:article_id/comments", () => {
-          it("GET returns status 200 & an array of comments for the given article_id", () => {
+          it.only("GET returns status 200 & an array of comments for the given article_id", () => {
             return request(app)
-              .get("/api/articles/1/comments")
+              .get("/api/articles/2/comments")
               .expect(200)
               .then(({ body: { comments } }) => {
                 expect(comments).to.have.length(13);
@@ -414,5 +414,10 @@ describe("/", () => {
           .expect(405);
       });
     });
+  });
+  it("GET responds with status 404 for a non-existent route", () => {
+    return request(app)
+      .get("/non-existent-route")
+      .expect(404);
   });
 });
