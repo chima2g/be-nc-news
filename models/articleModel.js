@@ -68,19 +68,27 @@ exports.selectComments = (
     "comments.body"
   ];
 
+  //Query the articles table first to see if the article exists. If not, return 404
+  //Otherwise, perform our actual query to the comments table
   return connection("articles")
-    .select(selectedColumns)
-    .join("comments", "articles.article_id", "comments.article_id")
-    .where("comments.article_id", "=", article_id)
-    .modify(queryBuilder => {
-      queryBuilder.orderBy(sort_by, order);
-    })
+    .select("*")
+    .where("articles.article_id", "=", article_id)
     .then(result => {
-      // console.log("result: " + JSON.stringify(result));
-
       if (result.length === 0)
         return Promise.reject({ msg: "Article not found!", status: 404 });
-      else return result;
+      else {
+        return connection("articles")
+          .select(selectedColumns)
+          .join("comments", "articles.article_id", "comments.article_id")
+          .where("comments.article_id", "=", article_id)
+          .modify(queryBuilder => {
+            queryBuilder.orderBy(sort_by, order);
+          })
+          .then(result => {
+            // console.log("result: " + JSON.stringify(result));
+            return result;
+          });
+      }
     });
 };
 

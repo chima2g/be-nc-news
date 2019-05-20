@@ -13,6 +13,11 @@ describe("/", () => {
   beforeEach(() => connection.seed.run());
   after(() => connection.destroy());
 
+  it("GET responds with status 404 for a non-existent route", () => {
+    return request(app)
+      .get("/non-existent-route")
+      .expect(404);
+  });
   describe("/api", () => {
     // it.only("GET status:200", () => {
     //   return request(app)
@@ -230,9 +235,17 @@ describe("/", () => {
             .expect(405);
         });
         describe("/api/articles/:article_id/comments", () => {
-          it.only("GET returns status 200 & an array of comments for the given article_id", () => {
+          it("GET returns status 200 & an empty array when an article exists but has no comments", () => {
             return request(app)
               .get("/api/articles/2/comments")
+              .expect(200)
+              .then(({ body: { comments } }) => {
+                expect(comments).to.have.length(0);
+              });
+          });
+          it("GET returns status 200 & an array of comments for the given article_id", () => {
+            return request(app)
+              .get("/api/articles/1/comments")
               .expect(200)
               .then(({ body: { comments } }) => {
                 expect(comments).to.have.length(13);
@@ -414,10 +427,5 @@ describe("/", () => {
           .expect(405);
       });
     });
-  });
-  it("GET responds with status 404 for a non-existent route", () => {
-    return request(app)
-      .get("/non-existent-route")
-      .expect(404);
   });
 });
