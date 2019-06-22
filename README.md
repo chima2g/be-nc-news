@@ -74,7 +74,7 @@ GET /api/articles/:article_id
 
 - an article object, which has the following properties:
 
-  - `author` which is the `username` from the users table
+  - `author` which is the `username` of a users object
   - `title`
   - `article_id`
   - `body`
@@ -133,7 +133,7 @@ GET /api/articles/:article_id/comments
   - `comment_id`
   - `votes`
   - `created_at`
-  - `author` which is the `username` from the users table
+  - `author` which is the `username` of a users object
   - `body`
 
 #### Accepts queries
@@ -150,7 +150,7 @@ GET /api/articles
 #### Responds with
 
 - an `articles` array of article objects, each of which has the following properties:
-  - `author` which is the `username` from the users table
+  - `author` which is the `username` of a users object
   - `title`
   - `article_id`
   - `topic`
@@ -175,7 +175,7 @@ PATCH /api/comments/:comment_id
 
 - an object in the form `{ inc_votes: newVote }`
 
-  - `newVote` will indicate how much the `votes` property in the database S be updated by
+  - `newVote` will indicate how much the `votes` property in the database should be updated by
 
   e.g.
 
