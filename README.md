@@ -15,7 +15,7 @@ git clone https://github.com/chima2g/be-nc-news.git
 ```
 
 - Run `npm i`
-- Follow the guide in [hosting.md](./hosting.md) to create a hosted database. This guide requires you to create a knexfile.js in the db folder. Please see [example/knexfile_prod_example.js](./example/knexfile_prod_example.js) for an example of what that should look like.
+- Follow the [hosting.md](./hosting.md) guide to create a hosted back-end API. This guide requires you to create a knexfile.js in the db folder which has already been created for you.
 
 # Routes
 
