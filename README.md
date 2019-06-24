@@ -6,16 +6,16 @@ Its range of articles are searchable by topic and author. Each article has user 
 
 This back-end API is a server that facilitates the storage and retrieval of user, article and comment data in a PSQL database. It is used by the [front-end](#useful-links) to display the Northcoders News website.
 
-# Quick start
+# Setting It Up
 
 - Clone the repo from your terminal using the following command:
 
 ```bash
 git clone https://github.com/chima2g/be-nc-news.git
 ```
-
+- Run `cd ./be-nc-news`
 - Run `npm i`
-- Follow the [hosting.md](./hosting.md) guide to create a hosted back-end API. This guide requires you to create a knexfile.js in the db folder which has already been created for you.
+- Follow the [hosting.md](./hosting.md) guide to create a hosted back-end API. This guide requires you to create a knexfile.js file in the db folder which has already been created for you.
 
 # Routes
 
@@ -205,6 +205,10 @@ DELETE /api/comments/:comment_id
 
 # Useful Links
 
+[Front end deployed version](https://fe-nc-news-chima2g.herokuapp.com/)
+
 [Front end repo](https://github.com/chima2g/fe-nc-news/)
 
-[Deployed version](https://be-nc-news-chima2g.herokuapp.com/)
+[Back end deployed version](https://be-nc-news-chima2g.herokuapp.com/)
+
+[Back end repo](https://github.com/chima2g/fe-nc-news/)
